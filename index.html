@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Isometric Puzzle Prototype</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: #0f1220;
+        color: #e6e6e6;
+        height: 100%;
+        overflow: hidden;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      }
+      #game-root {
+        width: 100vw;
+        height: 100vh;
+      }
+      /* Ensure Phaser canvas stays below HUD */
+      #game-root canvas {
+        position: absolute !important;
+        z-index: 0 !important;
+        inset: 0;
+      }
+      .hud {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        background: rgba(0,0,0,0.5);
+        padding: 8px 10px;
+        border-radius: 8px;
+        backdrop-filter: blur(4px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        font-weight: 600;
+        z-index: 9999;
+        pointer-events: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="game-root"></div>
+    <div class="hud" id="hud">
+      <div id="hud-inv">Inventory: (empty)</div>
+      <div style="margin-top:6px; display:flex; align-items:center; gap:8px;">
+        <label for="zoom" style="font-weight:600;">Zoom</label>
+        <input id="zoom" type="range" min="0.5" max="3" step="0.5" value="1.5" />
+        <span id="zoomVal">1.5x</span>
+      </div>
+      <div style="margin-top:6px; display:flex; align-items:center; gap:8px;">
+        <label for="levelSelect" style="font-weight:600;">Level</label>
+        <select id="levelSelect" style="background:#2a2f4a; border:1px solid #3a3f5f; color:#e6e6e6; padding:2px 4px; border-radius:4px;">
+          <option value="">Loading...</option>
+        </select>
+        <button id="loadLevelBtn" style="background:#4a7f6a; border:none; color:white; padding:2px 8px; border-radius:4px; cursor:pointer;">Load</button>
+      </div>
+      
+    </div>
+
+    <!-- Phaser 3 CDN -->
+    <script src="https://unpkg.com/phaser@3.80.1/dist/phaser.min.js"></script>
+    <script src="./js/game.js"></script>
+    <script>
+      // Ensure HUD stays on top and attached after Phaser initializes
+      window.addEventListener('load', function() {
+        var hud = document.getElementById('hud');
+        if (hud && hud.parentNode !== document.body) {
+          document.body.appendChild(hud);
+        }
+        hud.style.display = 'block';
+        hud.style.visibility = 'visible';
+      });
+    </script>
+  </body>
+  </html>
+
+

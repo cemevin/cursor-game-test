@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Isometric Puzzle Level Editor</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: #0f1220;
+        color: #e6e6e6;
+        height: 100%;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      }
+      
+      .editor-container {
+        display: flex;
+        height: 100vh;
+      }
+      
+      .sidebar {
+        width: 300px;
+        background: #1a1f2e;
+        padding: 20px;
+        overflow-y: auto;
+        border-right: 2px solid #2a2f4a;
+      }
+      
+      .game-area {
+        flex: 1;
+        position: relative;
+      }
+      
+      .section {
+        margin-bottom: 25px;
+      }
+      
+      .section h3 {
+        margin: 0 0 10px 0;
+        color: #8bbcff;
+        font-size: 16px;
+      }
+      
+      .grid-controls {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+      
+      .grid-controls label {
+        font-size: 14px;
+        font-weight: 600;
+      }
+      
+      .grid-controls input {
+        width: 60px;
+        padding: 5px;
+        background: #2a2f4a;
+        border: 1px solid #3a3f5f;
+        border-radius: 4px;
+        color: #e6e6e6;
+        text-align: center;
+      }
+      
+      .tile-palette {
+        margin-bottom: 15px;
+      }
+      
+      .category-header {
+        font-weight: bold;
+        color: #8bbcff;
+        font-size: 12px;
+        margin: 10px 0 5px 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid #3a3f5f;
+        padding-bottom: 3px;
+      }
+      
+      .category-header:first-child {
+        margin-top: 0;
+      }
+      
+      .category-tiles {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        margin-bottom: 8px;
+      }
+      
+      .tile-option {
+        padding: 10px;
+        background: #2a2f4a;
+        border: 2px solid #3a3f5f;
+        border-radius: 6px;
+        cursor: pointer;
+        text-align: center;
+        font-size: 12px;
+        transition: all 0.2s;
+        min-height: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .tile-option:hover {
+        background: #3a3f5f;
+      }
+      
+      .tile-option.selected {
+        border-color: #8bbcff;
+        background: #4a4f6f;
+      }
+      
+      .tile-char {
+        font-family: monospace;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 4px;
+      }
+      
+      .controls {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      button {
+        padding: 10px 15px;
+        background: #4a7f6a;
+        border: none;
+        border-radius: 6px;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      
+      button:hover {
+        background: #5a8f7a;
+      }
+      
+      button:disabled {
+        background: #3a3f5f;
+        cursor: not-allowed;
+      }
+      
+      .export-area {
+        background: #2a2f4a;
+        border: 1px solid #3a3f5f;
+        border-radius: 6px;
+        padding: 10px;
+        font-family: monospace;
+        font-size: 12px;
+        resize: vertical;
+        min-height: 100px;
+        width: 100%;
+        color: #e6e6e6;
+      }
+      
+      .info {
+        background: rgba(74, 127, 106, 0.2);
+        border: 1px solid #4a7f6a;
+        border-radius: 6px;
+        padding: 10px;
+        font-size: 12px;
+        line-height: 1.4;
+      }
+      
+      #game-root canvas {
+        position: absolute !important;
+        z-index: 0 !important;
+        inset: 0;
+      }
+      
+      .status {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: rgba(0,0,0,0.7);
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 12px;
+        z-index: 9999;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="editor-container">
+      <div class="sidebar">
+        <div class="section">
+          <h3>Grid Settings</h3>
+          <div class="grid-controls">
+            <label for="gridWidth">Width:</label>
+            <input type="number" id="gridWidth" min="5" max="20" value="11">
+            <label for="gridHeight">Height:</label>
+            <input type="number" id="gridHeight" min="5" max="20" value="11">
+          </div>
+          <button onclick="resizeGrid()">Apply Grid Size</button>
+        </div>
+        
+        <div class="section">
+          <h3>Tile Palette</h3>
+          <div class="tile-palette" id="tilePalette">
+            <!-- Tiles will be populated by JavaScript -->
+          </div>
+          
+          <div class="section" id="idSelector" style="display: none; margin-top: 15px; padding: 15px; background: rgba(74, 127, 106, 0.2); border: 1px solid #4a7f6a; border-radius: 6px;">
+            <h3 style="margin: 0 0 10px 0; font-size: 14px;">ID Assignment</h3>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <label for="idInput" style="font-size: 12px; font-weight: 600;">ID:</label>
+              <input type="text" id="idInput" value="1" maxlength="2" style="width: 40px; padding: 5px; background: #2a2f4a; border: 1px solid #3a3f5f; border-radius: 4px; color: #e6e6e6; text-align: center;">
+              <div style="font-size: 11px; color: #8bbcff;">For Levers & Doors</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="section">
+          <h3>File Operations</h3>
+          <div class="controls">
+            <select id="levelSelectEditor" style="width: 100%; margin-bottom: 8px; padding: 8px; background: #2a2f4a; border: 1px solid #3a3f5f; border-radius: 4px; color: #e6e6e6;">
+              <option value="">Select Level...</option>
+            </select>
+            <input type="text" id="levelName" placeholder="level1" style="width: 100%; margin-bottom: 8px; padding: 8px; background: #2a2f4a; border: 1px solid #3a3f5f; border-radius: 4px; color: #e6e6e6;">
+            <button onclick="loadSelectedLevel()">Load Selected</button>
+            <button onclick="saveLevel()">Save Level</button>
+            <button onclick="clearGrid()">Clear Grid</button>
+          </div>
+        </div>
+        
+        <div class="section">
+          <h3>Import/Export</h3>
+          <div class="controls">
+            <button onclick="exportLevel()">Export to Text</button>
+            <button onclick="document.getElementById('fileInput').click()">Import from File</button>
+            <input type="file" id="fileInput" accept=".txt" style="display: none;" onchange="loadLevel(event)">
+          </div>
+        </div>
+        
+        <div class="section">
+          <h3>Export</h3>
+          <textarea class="export-area" id="exportArea" placeholder="Level data will appear here..."></textarea>
+        </div>
+        
+        <div class="section">
+          <div class="info">
+            <strong>Instructions:</strong><br>
+            • Select a tile from the palette<br>
+            • Click on the grid to place tiles<br>
+            • Right-click to erase<br>
+            • Only one player start (P) allowed<br>
+            • Export saves the level as text
+          </div>
+        </div>
+      </div>
+      
+      <div class="game-area">
+        <div id="game-root"></div>
+        <div class="status" id="status">
+          Selected: Floor | Grid: 11x11 | Click to place
+        </div>
+      </div>
+    </div>
+
+    <input type="file" id="fileInput" accept=".txt" style="display: none;" onchange="loadLevel(event)">
+    
+    <!-- Phaser 3 CDN -->
+    <script src="https://unpkg.com/phaser@3.80.1/dist/phaser.min.js"></script>
+    <script src="./js/editor.js"></script>
+  </body>
+</html>

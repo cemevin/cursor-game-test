@@ -1,0 +1,108 @@
+{
+  "floor": {
+    "default": "assets/kenney/Isometric/floor_e.png",
+    "n": "assets/kenney/Isometric/floor_N.png",
+    "s": "assets/kenney/Isometric/floor_S.png",
+    "e": "assets/kenney/Isometric/floor_E.png", 
+    "w": "assets/kenney/Isometric/floor_W.png"
+  },
+
+  "wall": {
+    "n": "assets/kenney/Isometric/wall_N.png",
+    "s": "assets/kenney/Isometric/wall_S.png", 
+    "e": "assets/kenney/Isometric/wall_E.png",
+    "w": "assets/kenney/Isometric/wall_W.png"
+  },
+
+  "half_wall": {
+    "n": "assets/kenney/Isometric/half_wall_N.png",
+    "s": "assets/kenney/Isometric/half_wall_S.png",
+    "e": "assets/kenney/Isometric/half_wall_E.png", 
+    "w": "assets/kenney/Isometric/half_wall_W.png"
+  },
+
+  "window": {
+    "n": "assets/kenney/Isometric/window_N.png",
+    "s": "assets/kenney/Isometric/window_S.png",
+    "e": "assets/kenney/Isometric/window_E.png",
+    "w": "assets/kenney/Isometric/window_W.png"
+  },
+
+  "door_closed": {
+    "n": "assets/kenney/Isometric/doorClosed_N.png",
+    "s": "assets/kenney/Isometric/doorClosed_S.png",
+    "e": "assets/kenney/Isometric/doorClosed_E.png",
+    "w": "assets/kenney/Isometric/doorClosed_W.png"
+  },
+
+  "door_open": {
+    "n": "assets/kenney/Isometric/doorOpen_N.png",
+    "s": "assets/kenney/Isometric/doorOpen_S.png",
+    "e": "assets/kenney/Isometric/doorOpen_E.png",
+    "w": "assets/kenney/Isometric/doorOpen_W.png"
+  },
+
+  "doorway": {
+    "n": "assets/kenney/Isometric/doorway_N.png",
+    "s": "assets/kenney/Isometric/doorway_S.png",
+    "e": "assets/kenney/Isometric/doorway_E.png",
+    "w": "assets/kenney/Isometric/doorway_W.png"
+  },
+
+  "switch_off": {
+    "default": "assets/kenney/Isometric/switchWallOff.png",
+    "n": "assets/kenney/Isometric/switchWallOff_N.png",
+    "s": "assets/kenney/Isometric/switchWallOff_S.png",
+    "e": "assets/kenney/Isometric/switchWallOff_E.png",
+    "w": "assets/kenney/Isometric/switchWallOff_W.png"
+  },
+
+  "switch_on": {
+    "default": "assets/kenney/Isometric/switchWallOn.png",
+    "n": "assets/kenney/Isometric/switchWallOn_N.png",
+    "s": "assets/kenney/Isometric/switchWallOn_S.png",
+    "e": "assets/kenney/Isometric/switchWallOn_E.png",
+    "w": "assets/kenney/Isometric/switchWallOn_W.png"
+  },
+
+  "tile_bridge_on_img": "assets/kenney/Isometric/bridge_on.png",
+  "tile_bridge_off_img": "assets/kenney/Isometric/bridge_off.png",
+  "item_key_img": "assets/kenney/Items/key.png",
+  "lever_img": "assets/kenney/Props/lever.png",
+  "path_dot_img": "assets/ui/path_dot.png",
+
+  "tile_originY": 1.0,
+  "tile_offsetY": -2,
+  "tile_floor_originY": 1.0,
+  "tile_floor_offsetY": 0,
+
+  "switch_originY": 0.0,
+  "switch_offsetY": -10,
+
+  "level_file": "assets/levels/level2.txt",
+
+  "player_sheet": {
+    "walk": {
+      "north": "assets/kenney/Characters/Human/Human_0_Run.png",
+      "south": "assets/kenney/Characters/Human/Human_4_Run.png",
+      "east": "assets/kenney/Characters/Human/Human_2_Run.png",
+      "west": "assets/kenney/Characters/Human/Human_6_Run.png",
+      "num_frames": 10,
+      "frame_rate": 15
+    },
+    "idle": {
+      "north": "assets/kenney/Characters/Human/Human_0_Idle.png",
+      "south": "assets/kenney/Characters/Human/Human_4_Idle.png",
+      "east": "assets/kenney/Characters/Human/Human_2_Idle.png",
+      "west": "assets/kenney/Characters/Human/Human_6_Idle.png",
+      "num_frames": 1,
+      "frame_rate": 4
+    }
+  },
+
+  "player_targetWidth": 64,
+  "player_originY": 1.0,
+  "player_offsetY": 16,
+
+  "tile_pick_offsetY": 16
+}
